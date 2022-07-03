@@ -110,7 +110,7 @@ document.querySelector('#zoomOut').addEventListener('click',()=>{
   zoom /=2
 })
 document.querySelector('#zoomIn').addEventListener('click',()=>{
-  zoom +=2
+  zoom *=2
 })
 
 let paused = true;
