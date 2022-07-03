@@ -75,6 +75,7 @@ let basis2 = [
   new Vector(1, -2),
   new Vector(3, 0)
 ]
+let zoom=1
 
 document.querySelector('#restartAnimation').addEventListener('click',()=>{
   animationProgress = 0
@@ -85,8 +86,6 @@ document.querySelector('#pauseAnimation').addEventListener('click',()=>{
 document.querySelector('#playAnimation').addEventListener('click',()=>{
   paused = false
 })
-
-
 document.getElementById('applyMatrix1').addEventListener('click', () => {
   const x1 = int(document.querySelector('#m1ix').value)
   const y1 = int(document.querySelector('#m1iy').value)
@@ -97,7 +96,6 @@ document.getElementById('applyMatrix1').addEventListener('click', () => {
     new Vector(x2,y2)
   ]
 })
-
 document.getElementById('applyMatrix2').addEventListener('click', () => {
   const x1 = int(document.querySelector('#m2ix').value)
   const y1 = int(document.querySelector('#m2iy').value)
@@ -107,6 +105,12 @@ document.getElementById('applyMatrix2').addEventListener('click', () => {
     new Vector(x1,y1),
     new Vector(x2,y2)
   ]
+})
+document.querySelector('#zoomOut').addEventListener('click',()=>{
+  zoom /=2
+})
+document.querySelector('#zoomIn').addEventListener('click',()=>{
+  zoom +=2
 })
 
 let paused = true;
@@ -198,6 +202,7 @@ function setup() {
 }
 
 let animationProgress = 0
+
 function draw() {
   clear()
   background(backgroundColor)
@@ -205,8 +210,10 @@ function draw() {
   
 
 
-
+  
   const tempBasis = transitionBetweenMatrices(basis1, basis2, animationProgress)
+  tempBasis[0].scale(zoom)
+  tempBasis[1].scale(zoom)
   // const tempBasis = transitionBetweenMatrices(basis1, getRotationMatrix(Math.PI / 2), animationProgress)
   // drawGrid(basis1, 'rgba(255, 255, 255,0.4)', 4)
   drawGrid(tempBasis, 'rgba(0,120,120,1)', 1)
